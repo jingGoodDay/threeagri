@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>国家统计局湖北调查总队三农普数据管理系统</title>
+    <link rel="stylesheet" type="text/css" href="../css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../css/home.css">
+    <link rel="stylesheet" type="text/css" href="../lib/fakeLoader/fakeLoader.css">
+    <link rel="stylesheet" type="text/css" href="../css/a.css">
+    <link rel="stylesheet" type="text/css" href="../css/radialindicator.css">
+    <link rel="stylesheet" href="../lib/3.15/esri/css/esri.css"/>
+    <link rel="stylesheet" type="text/css" href="../lib/ol3/ol.css">
+    <link rel="stylesheet" type="text/css" href="../lib/dataRangePicker/dist/daterangepicker.min.css">
+</head>
+<body>
+<!-- 头部开始 -->
+<header>
+    <div class="system-name">
+        <img src="../img/logo.png">
+        <p class="main-title">国家统计局湖北调查总队</p>
+        <p class="other-title">三农普数据管理系统</p>
+    </div>
+    <div class="head-user">
+        <img src="../img/huanyingdenglu.png">
+        <span class="head-desc">欢迎</span>
+        <span class="head-name" id="user-name"></span>
+        <span class="head-logout" id="logout">注销</span>
+    </div>
+</header>
+<!-- 头部结束 -->
+
+<!-- 内容开始 -->
+<content>
+    <div class="left">
+        <div class="left-top">
+            <!-- 用户信息开始 -->
+            <div class="user-info">
+                <span>超级用户</span>
+            </div>
+            <div class="user-space">
+                <div id="indicatorContainer"></div>
+                <span>存储空间</span>
+            </div>
+            <div class="user-result">
+                <p>共有</p>
+                <p><span></span>条数据</p>
+            </div>
+            <!-- 用户信息结束 -->
+        </div>
+        <div class="left-bottom">
+            <nav class="left-bottom-left">
+                <ul>
+                    <li id="chengguozhanshi" class="clicked">数据检索</li>
+                    <li id="yuanshishuju">原始数据</li>
+                    <li id="guochengshuju">过程数据</li>
+                    <li id="chengguoshuju">成果数据</li>
+                </ul>
+            </nav>
+            <section class="left-bottom-right">
+                <!-- 所有文件开始 -->
+                <input style="margin-left: 20px;" type="radio" id="all-data" name="select-data" checked> <label for="all-data" class="data-radio">全部</label>
+                <input style="margin-left: 20px;" type="radio" id="yuanshi-data" name="select-data"> <label for="yuanshi-data" class="data-radio">原始数据</label>
+                <!-- <input style="margin-left: 20px;" type="radio" id="guocheng-data" name="select-data"> <label for="guocheng-data" class="data-radio">过程数据</label> -->
+                <input style="margin-left: 20px;" type="radio" id="chengguo-data" name="select-data"> <label for="chengguo-data" class="data-radio">成果数据</label>
+                <div class="search">
+                    <label class="search-name">数据检索</label>
+                    <input class="search-input" type="text" placeholder="请输入检索内容" />
+                    <button class="search-btn"><img src="../img/query.png"></button>
+                </div>
+                <div class="file-type">
+                    <ul>
+                        <li class="chengguozhanshi clicked" id="yingxiang">影像</li>
+                        <li class="chengguozhanshi" id="shiliang">矢量</li>
+                        <li class="chengguozhanshi" id="wendang">文档</li>
+                        <li class="chengguozhanshi" id="duomeiti">多媒体</li>
+                    </ul>
+                </div>
+                <div class="file-list">
+                    <ul id="all-files">
+
+                    </ul>
+                </div>
+                <div class="file-control">
+                    <div class="file-btn-list">
+                        <!--<span class="btn" id="uploadfile"><img class="upload" src="../img/upload.png"/>上传</span>-->
+                        <span class="btn"><img class="refresh" src="../img/refresh.png"/>刷新</span>
+                    </div>
+                    <!-- 分页开始 -->
+                    <div class="pages">
+                        <div class="current-page">第<span id="current-page-num">1</span>页</div>
+                        <div class="before-page">上一页</div>
+                        <div class="after-page">下一页</div>
+                        <div class="total-page">共<span id="total-page-num">1</span>页</div>
+                    </div>
+                    <!-- 分页结束 -->
+                </div>
+                <!-- 所有文件结束 -->
+            </section>
+            <section class="left-wenjianmulu">
+                <!-- 表格菜单-->
+                <div class="top-menu-dir">
+                    <ul>
+                        <!--<li id="download-dir"><img src="../img/xiazai.png"><span>下载</span></li>-->
+                        <li id="uploadfile"><img src="../img/shangchuan.png"><span>上传</span></li>
+                        <!--<li id="newfile-dir"><img src="../img/xinjian.png"><span>新建</span></li>-->
+                        <li><img src="../img/shuaxin.png"><span>刷新</span></li>
+                    </ul>
+                 </div>
+                <div id="file-list-dir"><span>当前目录：</span><span class="currentdir-dir"></span></div>
+                <!-- 表格内容-->
+                <table class="file-table-dir">
+                    <tbody>
+                    <!--+table-list-->
+                    <!--+table-list-->
+                    <!--+table-list-->
+                    </tbody>
+                </table>
+                <!-- 上传文件-->
+                <div id="file-tree-dir">
+                    <div id="upload-file-list-dir"><span>当前目录：</span><span class="currentdir-dir"></span><span class="right-close-dir">X</span></div>
+                    <!-- 表格内容-->
+                    <table class="upload-file-table-dir">
+                        <tbody>
+                        <!--+upload-table-list-->
+                        <!--+upload-table-list-->
+                        <!--+upload-table-list-->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div class="right">
+        <div class="top-menu">
+            <span class="menu-list clicked" id="all-search">综合查询</span>
+            <span class="menu-list" id="result-show">数据检索</span>
+        </div>
+        <!-- 数据检索开始 -->
+        <div class="map-result">
+            <div id="map-result"></div>
+            <div class="fakeloader"></div>
+        </div>
+        <!-- 数据检索结束 -->
+        <!-- 综合查询开始 -->
+        <div class="map-search">
+            <div class="map-search-menu">
+                    <span class="select">
+                        <span class="pan clicked">漫游</span>
+                        <span class="point">点选</span>
+                        <span class="polygon">框选</span>
+                    </span>
+                    <div class="time-select">
+                        <!--<span class="data-span">日期查询：</span>-->
+                        <input type="radio" name="date-type" value="paishe" id="paishe" checked="checked" /> <label for="paishe">存储时间</label>
+                        <input type="radio" name="date-type" value="cunchu" id="cunchu" /> <label for="cunchu">拍摄时间</label>
+                        <input id="date-range" size="20">
+                    </div>
+                    <div class="layer-select">
+                        <input type="checkbox" id="zhongfen" value="zhongfen"  checked="checked">  <label for="zhongfen">亚米</label>
+                        <input type="checkbox" id="miji" value="miji"> <label for="miji">米</label>
+                        <input type="checkbox" id="yamiji" value="yamiji" >  <label for="yamiji">中分</label>
+                    </div>
+                    <div class="layer-select">
+                        <input type="text" placeholder="请输入行政区名" size="13" id="xingzhengqu" class="xingzhengqu"><button id="xingzhengquButton">确定</button>
+                        <!--<input type="text" placeholder="请输入村代码" size="13" id="cundaima"><button id="cundaimaButton">确定</button>-->
+                    </div>
+                    <button id="setclear">一键还原</button>
+            </div>
+            <div>
+                <!--输入行政区名提示框-->
+                <div id="autoxingzhengqu" class="xingzhengqu">
+                    <ul></ul>
+                </div>
+            </div>
+            <div class="nav"  class="dingwei">
+                <!--地图定位输入框-->
+                <i class="icon"></i>
+                <input type="text" placeholder="请输入地名"  id="txtAddress">
+            </div>
+            <div class="navbox" class="dingwei">
+                <!--地图定位提示框-->
+                <div class="autodizhi">
+                    <ul></ul>
+                </div>
+            </div>
+            <div id="map-search"></div>
+            <div class="map-search-table">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>坐标系</th>  
+                        <th>级别</th>
+                        <th>波段数</th>
+                        <th>影像宽</th>
+                        <th>影像高</th>
+                        <th>分辨率</th>
+                        <th>存储时间</th>
+                        <th>拍摄时间</th>
+                        <th>区县界</th>
+                        <th>村界</th>
+                        <th>路径</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- 综合查询结束 -->
+    </div>
+
+    <!-- 上传文件开始-->
+    <div id="file-tree">
+        <div id="upload-file-list"><span>当前目录：</span><span class="currentdir"></span><span class="right-close">X</span></div>
+        <!-- 表格内容-->
+        <table class="upload-file-table">
+            <tbody></tbody>
+        </table>
+    </div>
+    <!--上传文件结束-->
+</content>
+<!-- 内容结束 -->
+
+    <!-- 脚注开始 -->
+    <footer>
+
+    </footer>
+    <!-- 脚注结束 -->
+    <script type="text/javascript" src="../lib/dataRangePicker/moment.min.js"></script>
+    <script type="text/javascript" src="../lib/jquery.min.js"></script>
+    <script type="text/javascript" src="../lib/dataRangePicker/dist/jquery.daterangepicker.min.js"></script>
+    <script type="text/javascript" src="../lib/ol3/ol.js"></script>
+    <script type="text/javascript" src="../lib/fakeLoader/fakeLoader.js"></script>
+    <script type="text/javascript" src="../lib/jsts.min.js"></script>
+    <script type="text/javascript" src="../js/config.js"></script>
+    <script src="../lib/3.15/init.js"></script>
+    <script src="../js/mapcontrol.js"></script>
+    <script src="../js/uploadfile.js"></script>
+    <script src="../js/personaldata.js"></script>
+    <script type="text/javascript" src="../lib/radialIndicator.js"></script>
+    <script type="text/javascript" src="../js/index.js"></script>
+    <script type="text/javascript" src="../js/map.js"></script>
+</body>
+</html>
